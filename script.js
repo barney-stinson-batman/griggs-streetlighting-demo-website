@@ -1,11 +1,5 @@
-/* ===========================
-   GRIGGS STREET LIGHTING
-   script.js — Interactions & Animations
-   =========================== */
-
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ─── 1. NAVBAR SCROLL ───────────────────────────────────────────
   const navbar = document.getElementById('navbar');
   const onScroll = () => {
     if (window.scrollY > 20) {
@@ -16,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  // ─── 2. HAMBURGER MENU ──────────────────────────────────────────
   const hamburger = document.getElementById('hamburger');
   const navLinks  = document.getElementById('navLinks');
 
@@ -27,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
     });
 
-    // Close on link click
     navLinks.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('open');
@@ -37,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ─── 3. LAMP GRID BACKGROUND ────────────────────────────────────
   const lampGrid = document.getElementById('lampGrid');
   if (lampGrid) {
     const cols = Math.ceil(window.innerWidth / 120) + 1;
@@ -66,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ─── 4. SCROLL REVEAL ───────────────────────────────────────────
   const revealEls = document.querySelectorAll(
     '.service-card, .breakdown-card, .feature-item, .value-card, .who-card, ' +
     '.process-step, .story-stat-card, .contact-item, .area-tag, .trust-item'
@@ -88,13 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   revealEls.forEach(el => revealObserver.observe(el));
 
-  // Also reveal section headers
   document.querySelectorAll('.section-header, .detail-intro-text, .why-content, .story-text, .cert-text').forEach(el => {
     el.classList.add('reveal');
     revealObserver.observe(el);
   });
 
-  // ─── 5. COUNTER ANIMATION ───────────────────────────────────────
   const counters = document.querySelectorAll('.stat-num[data-target]');
 
   if (counters.length) {
@@ -125,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
     counters.forEach(c => counterObserver.observe(c));
   }
 
-  // ─── 6. CONTACT FORM ────────────────────────────────────────────
   const form = document.getElementById('contactForm');
   if (form) {
     const nameInput    = document.getElementById('name');
@@ -144,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const showError = (el, msg) => { if (el) el.textContent = msg; };
     const clearError = (el)   => { if (el) el.textContent = ''; };
 
-    // Live validation
     if (nameInput) {
       nameInput.addEventListener('blur', () => {
         nameInput.value.trim().length < 2
@@ -173,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       let valid = true;
 
-      // Validate
       if (!nameInput || nameInput.value.trim().length < 2) {
         showError(nameError, 'Please enter your name');
         valid = false;
@@ -191,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!valid) return;
 
-      // Simulate submission
       if (btnText)    btnText.style.display    = 'none';
       if (btnLoading) btnLoading.style.display = 'inline';
       if (submitBtn)  submitBtn.disabled        = true;
@@ -203,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ─── 7. ACTIVE NAV LINK ─────────────────────────────────────────
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-link').forEach(link => {
     const href = link.getAttribute('href');
@@ -214,14 +197,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ─── 8. SMOOTH HOVER UNDERLINE on service cards ─────────────────
   document.querySelectorAll('.service-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
       card.style.cursor = 'pointer';
     });
   });
 
-  // ─── 9. GOLD ACCENT on section tags (staggered fade-in) ─────────
   document.querySelectorAll('.section-tag').forEach((tag, i) => {
     tag.style.opacity = '0';
     tag.style.transform = 'translateY(8px)';
@@ -239,7 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
     obs.observe(tag);
   });
 
-  // ─── 10. PAGE TRANSITION ────────────────────────────────────────
   document.body.style.opacity = '0';
   document.body.style.transition = 'opacity 0.4s ease';
 
@@ -247,7 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.opacity = '1';
   });
 
-  // Fade out on internal link clicks
   document.querySelectorAll('a[href]').forEach(link => {
     const href = link.getAttribute('href');
     if (href && !href.startsWith('#') && !href.startsWith('tel:') &&
